@@ -1,4 +1,6 @@
 import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
+import java.rmi.Remote;
 
 
 public class main {
@@ -6,6 +8,7 @@ public class main {
 	public static void main(String[] args) {
 		try {
 			
+			//côté serveur
 			java.rmi.registry.LocateRegistry.createRegistry(1099);
 			
 			System.out.println("Mise en place du Security Manager ...");
@@ -21,9 +24,24 @@ public class main {
 			
 			System.out.println("Serveur lancé");
 			
+			//côté client
+			System.setSecurityManager(new RMISecurityManager());
+			
+		   try {
+		      Remote r = Naming.lookup("rmi://127.0.0.1/TestRMI");
+		      
+		      if (r instanceof Information) {
+		    	  String s = ((Information) r).getInformation();
+		    	  System.out.println("chaine renvoyée = " + s);
+		    	  }
+		   	}
+		   	catch (Exception e) {
+		   		
+		   	}
+			
 		}
 		catch (Exception e) {
-			System.out.println("Exception capturée: " + e.getMessage());
+			System.out.println("Exception capturée!: " + e.getMessage());
 		}
 	}
 
