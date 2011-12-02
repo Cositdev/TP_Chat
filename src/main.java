@@ -24,18 +24,7 @@ public class main {
 			//côté client
 			System.setSecurityManager(new RMISecurityManager());
 			
-		   try {
-		      Remote r = Naming.lookup("rmi://127.0.0.1/TestRMI");
-		      
-		      if (r instanceof Information) {
-		    	  String s = ((Information) r).getInformation();
-		    	  System.out.println("chaine renvoyée = " + s);
-		    	  }
-		   	}
-		   	catch (Exception e) {
-		   		
-		   	}
-			
+		   
 		}
 		catch (Exception e) {
 			System.out.println("Exception capturée!: " + e.getMessage());
