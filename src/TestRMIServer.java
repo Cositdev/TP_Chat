@@ -1,23 +1,45 @@
+import java.net.InetAddress;
 import java.rmi.*;
-import java.rmi.server.*;
-
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 public class TestRMIServer extends UnicastRemoteObject implements Information {
-	
-   protected TestRMIServer() throws RemoteException {
-      super();
-   }
-   public String echo(String msg) throws RemoteException{
-	   return "["+msg+"]";
-   }
-	public static void main(String arg[]){
-		try{
-			TestRMIServer serveurRMI = new TestRMIServer();
-			Naming.rebind("ServeurRMI", serveurRMI);
-			System.out.println("Serveur pret");
-			
-		}catch (Exception e) {
-			System.err.println("Erreur "+ e + "lors du lancement du server RMI");
-		}
+String message;
+// Implémentation du constructeur
+	public TestRMIServer(String msg) throws java.rmi.RemoteException {
+	super();
+	System.out.println(msg);
 	}
-
+	
+	
+// Implémentation de la méthode distante
+	public String sayHello(String mot) throws java.rmi.RemoteException {
+		System.out.println(mot);
+		return "<"+mot+">";
+	}
+	public static void main(String args[]) {
+		int port; String URL;
+		System.out.println("Lancement du serveur !");
+		try { // transformation d ’une chaîne de caractères en entier
+			//Integer I = new Integer(args[0]);
+			//port = I.intValue();
+			port=70;
+		} catch (Exception ex) {
+			System.out.println(" Please enter: Server <port>"); return;
+		}
+		try {
+			// Création du serveur de nom - rmiregistry
+			Registry registry = LocateRegistry.createRegistry(port);
+			// Création d ’une instance de l’objet serveur
+			Information obj = new TestRMIServer("Bienvenue sur le serveur !");
+			// Calcul de l’URL du serveur
+			URL = "//"+InetAddress.getLocalHost().getHostName()+":"+
+			port+"/mon_serveur";
+			Naming.rebind(URL, obj);
+			System.out.println("Serveur lancé");
+			System.out.println("URL : " + URL);
+			} catch (Exception exc) { 
+				exc.printStackTrace();
+			}
+		}
 }

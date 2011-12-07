@@ -13,7 +13,7 @@ public class main {
 			
 			System.out.println("Mise en place du Security Manager ...");
 			//System.setSecurityManager(new java.rmi.RMISecurityManager());
-			TestRMIServer testRMIServer = new TestRMIServer();
+			TestRMIServer testRMIServer = new TestRMIServer(null);
 			System.out.println("Enregistrement du serveur");
 			Naming.rebind("rmi://"+java.net.InetAddress.getLocalHost()+"/TestRMI",testRMIServer);
 			 
