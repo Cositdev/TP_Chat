@@ -15,7 +15,13 @@ String message;
 // Implémentation de la méthode distante
 	public String sayHello(String mot) throws java.rmi.RemoteException {
 		System.out.println(mot);
-		return "<"+mot+">";
+		String retour;
+		if(mot.contains("Guillaume")){
+			retour="C'est vrai";
+		}else{
+			retour="<"+mot+">";
+		}
+		return retour;
 	}
 	public static void main(String args[]) {
 		int port; String URL;
