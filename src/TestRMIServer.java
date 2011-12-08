@@ -3,25 +3,23 @@ import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 public class TestRMIServer extends UnicastRemoteObject implements Information {
-String message;
+	private Historique historique;
+	
 // Implémentation du constructeur
 	public TestRMIServer(String msg) throws java.rmi.RemoteException {
 	super();
+	historique= new Historique();
 	System.out.println(msg);
 	}
 	
 	
 // Implémentation de la méthode distante
-	public String sayHello(String mot) throws java.rmi.RemoteException {
-		System.out.println(mot);
-		String retour;
-		if(mot.contains("Guillaume")){
-			retour="C'est vrai";
-		}else{
-			retour="<"+mot+">";
-		}
-		return retour;
+	public String passerMessage(String Auteur,String message) throws java.rmi.RemoteException {
+		Message mess = new Message(Auteur,message);
+		historique.add(mess);
+		return historique.Raconter();
 	}
 	public static void main(String args[]) {
 		int port; String URL;
