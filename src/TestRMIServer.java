@@ -6,7 +6,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 public class TestRMIServer extends UnicastRemoteObject implements Information {
 	private Historique historique;
-	
+
+// Test
 // Implémentation du constructeur
 	public TestRMIServer(String msg) throws java.rmi.RemoteException {
 	super();
