@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.rmi.*;
 
+// Guillaume ajoute une ligne qui sert à rien
 
 public class ClientRMI {
 
