@@ -4,29 +4,31 @@ import java.io.InputStreamReader;
 import java.rmi.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+
 public class ClientRMI {
+	
 	private static String utilisateur;
 	
-public static void main(String args[]) {
-	Date da = new Date();
-	SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-	
-	System.out.println(formatter.format(da));
-	try {
-		System.out.println("Bonjour, quel est votre nom ?");
-		BufferedReader inNom=null;
-		inNom = new BufferedReader(new InputStreamReader(System.in));
-		utilisateur=inNom.readLine().trim();
-		System.out.println("Bonjour "+ utilisateur);
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
-	System.out.println("Vous pouvez commencer à papoter ");
-	while (true)
-		{
+	public static void main(String args[]) {
+		Date da = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+		System.out.println(formatter.format(da));
 		
+		try {
+			System.out.println("Bonjour, quel est votre nom ?");
+			BufferedReader inNom=null;
+			inNom = new BufferedReader(new InputStreamReader(System.in));
+			utilisateur=inNom.readLine().trim();
+			System.out.println("Bonjour "+ utilisateur);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		System.out.println("Vous pouvez commencer à papoter ");
+	
+		while (true) {
 		
 			try {
 				Message mess= new Message(utilisateur);
@@ -36,13 +38,11 @@ public static void main(String args[]) {
 				mess.EnvoyerMessage(obj);
 				
 				// Appel d'une méthode sur l'objet distant.
-				
-			}catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println("Echec de l'envoi du message");
 				e.printStackTrace();
 				// TODO: handle exception
 			}
-	
 		}
 	}
 }
