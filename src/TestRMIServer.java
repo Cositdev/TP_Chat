@@ -24,7 +24,9 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 		historique.add(mess);
 		return historique.Raconter();
 	}
-	
+	public String lireTout(){
+		return historique.Raconter();
+	}
 	
 	public static void main(String args[]) {
 		int port; String URL;

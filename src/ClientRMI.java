@@ -27,7 +27,8 @@ public class ClientRMI {
 		}
 	
 		System.out.println("Vous pouvez commencer à papoter ");
-	
+		ThreadPerso th = new ThreadPerso(utilisateur);
+		th.start();
 		while (true) {
 		
 			try {
