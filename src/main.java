@@ -23,12 +23,9 @@ public class main {
 			
 			//côté client
 			System.setSecurityManager(new RMISecurityManager());
-			
-		   
 		}
 		catch (Exception e) {
 			System.out.println("Exception capturée!: " + e.getMessage());
 		}
 	}
-
 }
