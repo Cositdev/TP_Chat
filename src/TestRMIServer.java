@@ -6,6 +6,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+
 
 @SuppressWarnings("serial")
 public class TestRMIServer extends UnicastRemoteObject implements Information {
@@ -75,6 +78,9 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 		} catch (Exception exc) { 
 			exc.printStackTrace();
 		}
+		FenetreServeur j = new FenetreServeur();
+		j.setVisible(true);
+
 	}
 
 	@Override
