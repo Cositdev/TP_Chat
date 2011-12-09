@@ -4,18 +4,18 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 
 @SuppressWarnings("serial")
 public class TestRMIServer extends UnicastRemoteObject implements Information {
-	private String serverName = "Serveur";
-	private Historique historique;
+	//private Historique historique;
 	private ArrayList<String> userLog = new ArrayList<String>();
+	private ListeClients clients =new ListeClients();
 
 	// Implémentation du constructeur
 	public TestRMIServer(String msg) throws java.rmi.RemoteException {
 		super();
-		historique= new Historique();
 		System.out.println(msg);
 	}
 	
@@ -23,26 +23,30 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 	// Implémentation de la méthode distante
 	public String passerMessage(String Auteur,String message) throws java.rmi.RemoteException {
 		Message mess = new Message(Auteur,message);
-		historique.add(mess);
-		return historique.Raconter();
+		clients.envoyerPartout(mess);
+		return clients.get(Auteur).getHistorique().Raconter();
 	}
-	public String lireTout(){
-		return historique.Raconter();
+	public String lireTout(String Nom){
+		String retour = "";
+		try{
+		retour = clients.get(Nom).getHistorique().Raconter();
+		}catch (Exception ex) {
+			//ex.printStackTrace();
+			System.out.println("Echec de la lecture (Utilisateur supprimé ?)");
+		}
+		return retour;
 	}
 	
 	public void addUser(String username) throws RemoteException {
 		System.out.println("hello "+username);
-		Message mess = new Message(serverName,username +" vient de se connecter");
-		historique.add(mess);
-		userLog.add(username);
+		//Message mess = new Message(serverName,username +" vient de se connecter");
+		//historique.add(mess);
+		//userLog.add(username);
+		clients.ajouterClient(username);
 	}
 	
 	public String userList() {
-		String retour = "";
-		for (String user: userLog) {
-			retour += user+"\n";
-		}
-		return retour;
+		return clients.listerClients();
 	}
 	
 	public static void main(String args[]) {
@@ -73,13 +77,15 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 		}
 	}
 
-
+	@Override
+	public void who(String nom) throws RemoteException {
+		String liste = "Liste des Utilisateurs connectés !\n"+clients.listerClients();
+		clients.get(nom).ajouterMessage(new Message("Serveur",liste));
+	}
+	
 	@Override
 	public void deconnexion(String username) throws RemoteException {
-		System.out.println("bye "+username);
-		Message mess = new Message(serverName,username +" vient de se déconnecter");
-		historique.add(mess);
-		userLog.remove(username);
+		clients.deconnecterClient(username);
 	}
 
 }

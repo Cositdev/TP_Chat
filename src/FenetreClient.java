@@ -43,12 +43,12 @@ public class FenetreClient extends JFrame implements Runnable{
 				
 				// Récupération d'un stub sur l'objet serveur.
 			
-				areaChat.setText(obj.lireTout());
+				areaChat.setText(obj.lireTout(utilisateur));
 				areaGens.setText(obj.userList());
 				
 				// Appel d'une méthode sur l'objet distant.
 			} catch (Exception e) {
-				System.out.println("Echec de l'envoi du message");
+				System.out.println("Echec de la lecture des messages");
 				e.printStackTrace();
 				// TODO: handle exception
 			}
@@ -123,15 +123,25 @@ public class FenetreClient extends JFrame implements Runnable{
          public void keyPressed(KeyEvent e) {
            int key = e.getKeyCode();
            if (key == KeyEvent.VK_ENTER) {
-	        	try {
-					Message m = new Message(utilisateur, textField.getText());
-					areaChat.setText(m.EnvoyerMessage(obj));
-					textField.setText("");
+        	   String mess= textField.getText();
+        	   if(mess.equals("/who")){
+        		   try {
+					obj.who(utilisateur);
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-	        	
+        	   }else{
+		        	try {
+						Message m = new Message(utilisateur, mess);
+						areaChat.setText(m.EnvoyerMessage(obj));
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+        	   }
+        	   textField.setText("");
+
              }
            }
          }
@@ -143,6 +153,7 @@ public class FenetreClient extends JFrame implements Runnable{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			System.exit(0);
 		}
 	}
 	 
