@@ -110,7 +110,10 @@ public class FenetreClient extends JFrame implements Runnable{
 
 		areaGens = new JTextArea ();
 		areaGens.setLineWrap(true); 
+		areaChat.setEditable(false);
 		areaGens.setColumns(10);
+		areaGens.setEditable(false);
+
 		scrollGens = new JScrollPane(areaGens);
 		scrollGens.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		getContentPane().add(scrollGens, BorderLayout.EAST);
@@ -140,8 +143,6 @@ public class FenetreClient extends JFrame implements Runnable{
 				}
 	        	
              }
-           
-           
            }
          }
 

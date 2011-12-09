@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class FenetreConnexion extends JFrame {
@@ -65,6 +67,8 @@ public class FenetreConnexion extends JFrame {
 		connexionPanel.setLayout(new GridLayout(3,1));
 		connexionPanel.add(message);
 		identif = new JTextField();
+		identif.addKeyListener(new connexionEnter() );
+
 		connexionPanel.add(identif);
 		JButton ok = new JButton("Connexion");
 		ok.addActionListener(new CLicOk());
@@ -82,9 +86,26 @@ public class FenetreConnexion extends JFrame {
 	}
 	class CLicOk implements ActionListener{
     	public void actionPerformed(ActionEvent e) {
-    		setVisible(false);
-    		ThreadClient th = new ThreadClient(identif.getText());
-    		th.start();
+    		connexion();
     	}
     }
+	
+	class connexionEnter extends KeyAdapter{
+        public void keyPressed(KeyEvent e) {
+        	 int key = e.getKeyCode();
+             if (key == KeyEvent.VK_ENTER)	connexion();
+            
+          }
+        }
+	public void connexion(){
+		if(identif.getText().length()<=1){
+			JOptionPane jop = new JOptionPane();
+			jop.showMessageDialog(null, "Merci rentrer un nom valide...","Nom tout pourri", JOptionPane.ERROR_MESSAGE);
+
+		}else{
+		setVisible(false);
+		ThreadClient th = new ThreadClient(identif.getText());
+		th.start();
+		}
+	}
 }
