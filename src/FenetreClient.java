@@ -23,19 +23,21 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.BoxLayout;
-import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 
 public class FenetreClient extends JFrame implements Runnable{
-	public String utilisateur;
-	JTextArea  areaChat;
-	JLabel labelNom;
+	private String utilisateur;
+	private JTextArea  areaChat;
+	private JTextArea  areaGens;
+	private JLabel labelNom;
 	private JTextField textField;
-	Information obj;
-	JScrollPane scrollArea;
+	private Information obj;
+	private JScrollPane scrollArea;
+	private JScrollPane scrollGens;
+
 	/**
 	 * Launch the application.
 	 */
@@ -99,6 +101,13 @@ public class FenetreClient extends JFrame implements Runnable{
 		scrollArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		getContentPane().add(scrollArea, BorderLayout.CENTER);
 
+		areaGens = new JTextArea ();
+		areaGens.setLineWrap(true); 
+		areaGens.setColumns(10);
+		scrollGens = new JScrollPane(areaGens);
+		scrollGens.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		getContentPane().add(scrollGens, BorderLayout.EAST);
+		
 		
 		labelNom = new JLabel(utilisateur);
 		getContentPane().add(labelNom, BorderLayout.NORTH);
