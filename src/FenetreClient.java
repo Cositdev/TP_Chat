@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -76,7 +77,10 @@ public class FenetreClient extends JFrame implements Runnable{
 	public FenetreClient(String nom) {
 		utilisateur = nom;
 		try {
-			obj = (Information) Naming.lookup("//Sitcocolita-HP:70/mon_serveur");
+			int port = 70;
+			String URL = "//"+InetAddress.getLocalHost().getHostName()+":"+port+"/mon_serveur";
+			
+			obj = (Information) Naming.lookup(URL);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,6 +90,9 @@ public class FenetreClient extends JFrame implements Runnable{
 		} catch (NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
 		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
