@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.net.InetAddress;
+import java.rmi.Naming;
 
 
 public class FenetreConnexion extends JFrame {
@@ -105,6 +107,23 @@ public class FenetreConnexion extends JFrame {
 		}else{
 		setVisible(false);
 		ThreadClient th = new ThreadClient(identif.getText());
+		
+		//-------------Ajout Antoine pour le logging utilisateur
+		
+		try {
+			int port = 70;
+			String URL = "//"+InetAddress.getLocalHost().getHostName()+":"+port+"/mon_serveur";
+			
+			Information obj = (Information) Naming.lookup(URL);
+			
+			System.out.println("test1");
+			obj.addUser(identif.getText());
+			
+		} catch (Exception exc) { 
+			exc.printStackTrace();
+		}
+		//---------------Fin Ajout
+		
 		th.start();
 		}
 	}

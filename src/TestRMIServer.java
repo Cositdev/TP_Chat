@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class TestRMIServer extends UnicastRemoteObject implements Information {
 	
 	private Historique historique;
+	private ArrayList<String> userLog = new ArrayList<String>();
 
 	// Implémentation du constructeur
 	public TestRMIServer(String msg) throws java.rmi.RemoteException {
@@ -26,6 +27,20 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 	}
 	public String lireTout(){
 		return historique.Raconter();
+	}
+	
+	public void addUser(String username) {
+		System.out.println("hello "+username);
+
+		userLog.add(username);
+	}
+	
+	public String userList() {
+		String retour = "";
+		for (String user: userLog) {
+			retour += user+"\n";
+		}
+		return retour;
 	}
 	
 	public static void main(String args[]) {

@@ -55,6 +55,7 @@ public class FenetreClient extends JFrame implements Runnable{
 				// Récupération d'un stub sur l'objet serveur.
 			
 				areaChat.setText(obj.lireTout());
+				areaGens.setText(obj.userList());
 				
 				// Appel d'une méthode sur l'objet distant.
 			} catch (Exception e) {
