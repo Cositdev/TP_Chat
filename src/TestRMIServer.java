@@ -81,4 +81,5 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 		historique.add(mess);
 		userLog.remove(username);
 	}
+
 }
