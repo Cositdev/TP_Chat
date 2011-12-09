@@ -9,7 +9,15 @@ import javax.swing.JTextPane;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -21,9 +29,11 @@ import javax.swing.JTextField;
 
 
 public class FenetreClient extends JFrame implements Runnable{
-	JTextArea  labelChat;
+	public String utilisateur;
+	JTextArea  areaChat;
 	JLabel labelNom;
-
+	private JTextField textField;
+	Information obj;
 	/**
 	 * Launch the application.
 	 */
@@ -32,14 +42,14 @@ public class FenetreClient extends JFrame implements Runnable{
 	public void run() {
 		this.setVisible(true);
 
-		labelChat.setText("C'est parti");
+		areaChat.setText("C'est parti");
 		while (true) {
 			
 			try {
 				
 				// Récupération d'un stub sur l'objet serveur.
-				Information obj = (Information) Naming.lookup("//Sitcocolita-HP:70/mon_serveur");
-				labelChat.setText(obj.lireTout());
+			
+				areaChat.setText(obj.lireTout());
 				// Appel d'une méthode sur l'objet distant.
 			} catch (Exception e) {
 				System.out.println("Echec de l'envoi du message");
@@ -59,23 +69,61 @@ public class FenetreClient extends JFrame implements Runnable{
 		
 	}
 	public FenetreClient(String nom) {
+		utilisateur = nom;
+		try {
+			obj = (Information) Naming.lookup("//Sitcocolita-HP:70/mon_serveur");
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 
 		
-		labelChat = new JTextArea ();
-		getContentPane().add(labelChat, BorderLayout.CENTER);
-		labelChat.setLineWrap(true); 
-		labelChat.setColumns(10);
+		areaChat = new JTextArea ();
+		getContentPane().add(areaChat, BorderLayout.CENTER);
+		areaChat.setLineWrap(true); 
+		areaChat.setColumns(10);
 
 		
-		labelNom = new JLabel(nom);
+		labelNom = new JLabel(utilisateur);
 		getContentPane().add(labelNom, BorderLayout.NORTH);
+		
+		textField = new JTextField();
+		textField.addKeyListener(new majEnter() );
+		getContentPane().add(textField, BorderLayout.SOUTH);
+		textField.setColumns(10);
 		
 	}
 
-	
+	class majEnter extends KeyAdapter{
+         public void keyPressed(KeyEvent e) {
+           int key = e.getKeyCode();
+           if (key == KeyEvent.VK_ENTER) {
+	        	try {
+					Message m = new Message(utilisateur, textField.getText());
+					areaChat.setText(m.EnvoyerMessage(obj));
+					textField.setText("");
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	        	
+             }
+           
+           
+           }
+         }
 
+	 
 }
+

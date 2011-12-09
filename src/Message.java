@@ -32,13 +32,15 @@ public class Message extends UnicastRemoteObject  {
 		}
 	}
 	
-	public void EnvoyerMessage(Information obj){
+	public String EnvoyerMessage(Information obj){
+		String retour = "";
 		try {
-			System.out.println(obj.passerMessage(this.Auteur,this.message));
+			retour =obj.passerMessage(this.Auteur,this.message);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return retour;
 	}
 	
 	public String LireMessage(){
