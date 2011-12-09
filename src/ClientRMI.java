@@ -29,21 +29,5 @@ public class ClientRMI {
 		System.out.println("Vous pouvez commencer à papoter ");
 		ThreadPerso th = new ThreadPerso(utilisateur);
 		th.start();
-		while (true) {
-		
-			try {
-				Message mess= new Message(utilisateur);
-				
-				// Récupération d'un stub sur l'objet serveur.
-				Information obj = (Information) Naming.lookup("//Sitcocolita-HP:70/mon_serveur");
-				mess.EnvoyerMessage(obj);
-				
-				// Appel d'une méthode sur l'objet distant.
-			} catch (Exception e) {
-				System.out.println("Echec de l'envoi du message");
-				e.printStackTrace();
-				// TODO: handle exception
-			}
-		}
 	}
 }

@@ -16,21 +16,6 @@ public class Message extends UnicastRemoteObject  {
 		this.Auteur= Auteur;
 		
 	}
-	public Message(String Auteur)throws java.rmi.RemoteException{
-
-		try {
-			BufferedReader in=null;
-			in = new BufferedReader(new InputStreamReader(System.in));
-			String msg=in.readLine().trim();
-			this.message=msg;
-			this.Auteur=Auteur;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Erreur dans la creation d'un message a partir du flux rentrant");
-			System.exit(0);
-		}
-	}
 	
 	public String EnvoyerMessage(Information obj){
 		String retour = "";

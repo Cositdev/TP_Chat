@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.BoxLayout;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -34,6 +35,7 @@ public class FenetreClient extends JFrame implements Runnable{
 	JLabel labelNom;
 	private JTextField textField;
 	Information obj;
+	JScrollPane scrollArea;
 	/**
 	 * Launch the application.
 	 */
@@ -50,6 +52,7 @@ public class FenetreClient extends JFrame implements Runnable{
 				// Récupération d'un stub sur l'objet serveur.
 			
 				areaChat.setText(obj.lireTout());
+				
 				// Appel d'une méthode sur l'objet distant.
 			} catch (Exception e) {
 				System.out.println("Echec de l'envoi du message");
@@ -57,7 +60,7 @@ public class FenetreClient extends JFrame implements Runnable{
 				// TODO: handle exception
 			}
 			try {
-				Thread.sleep(500);
+				Thread.sleep(200);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -90,9 +93,11 @@ public class FenetreClient extends JFrame implements Runnable{
 
 		
 		areaChat = new JTextArea ();
-		getContentPane().add(areaChat, BorderLayout.CENTER);
 		areaChat.setLineWrap(true); 
 		areaChat.setColumns(10);
+		scrollArea = new JScrollPane(areaChat);
+		scrollArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		getContentPane().add(scrollArea, BorderLayout.CENTER);
 
 		
 		labelNom = new JLabel(utilisateur);
