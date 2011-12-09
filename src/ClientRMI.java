@@ -10,7 +10,7 @@ public class ClientRMI {
 	
 	private static String utilisateur;
 	
-	public static void main(String args[]) {
+	public static void main (String args[]) {
 		Date da = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 		System.out.println(formatter.format(da));
