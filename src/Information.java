@@ -7,4 +7,5 @@ public interface Information extends java.rmi.Remote {
 	public String lireTout()throws java.rmi.RemoteException;
 	public void addUser(String username)throws java.rmi.RemoteException;
 	public String userList()throws java.rmi.RemoteException;
+	public void deconnexion(String username)throws java.rmi.RemoteException;
 }

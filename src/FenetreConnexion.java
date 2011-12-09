@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
@@ -22,9 +21,9 @@ import java.net.InetAddress;
 import java.rmi.Naming;
 
 
+@SuppressWarnings("serial")
 public class FenetreConnexion extends JFrame {
 
-	private JPanel contentPane;
 	private JPanel container  =new JPanel();
 	private JTextField identif;
 	/**
@@ -99,6 +98,7 @@ public class FenetreConnexion extends JFrame {
             
           }
         }
+	@SuppressWarnings("static-access")
 	public void connexion(){
 		if(identif.getText().length()<=1){
 			JOptionPane jop = new JOptionPane();

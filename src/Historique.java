@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 
+@SuppressWarnings("serial")
 public class Historique extends ArrayList<Message> {
 	public String Raconter(){
 		String retour = "";

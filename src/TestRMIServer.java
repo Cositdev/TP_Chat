@@ -6,8 +6,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 
+@SuppressWarnings("serial")
 public class TestRMIServer extends UnicastRemoteObject implements Information {
-	
+	private String serverName = "Serveur";
 	private Historique historique;
 	private ArrayList<String> userLog = new ArrayList<String>();
 
@@ -29,9 +30,10 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 		return historique.Raconter();
 	}
 	
-	public void addUser(String username) {
+	public void addUser(String username) throws RemoteException {
 		System.out.println("hello "+username);
-
+		Message mess = new Message(serverName,username +" vient de se connecter");
+		historique.add(mess);
 		userLog.add(username);
 	}
 	
@@ -69,5 +71,14 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 		} catch (Exception exc) { 
 			exc.printStackTrace();
 		}
+	}
+
+
+	@Override
+	public void deconnexion(String username) throws RemoteException {
+		System.out.println("bye "+username);
+		Message mess = new Message(serverName,username +" vient de se déconnecter");
+		historique.add(mess);
+		userLog.remove(username);
 	}
 }

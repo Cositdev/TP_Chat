@@ -1,19 +1,10 @@
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
-import javax.swing.JTextPane;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -21,14 +12,12 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
-import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 
+@SuppressWarnings("serial")
 public class FenetreClient extends JFrame implements Runnable{
 	private String utilisateur;
 	private JTextArea  areaChat;
@@ -96,7 +85,7 @@ public class FenetreClient extends JFrame implements Runnable{
 			exc.printStackTrace();
 		}
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(new quitter());
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -146,7 +135,16 @@ public class FenetreClient extends JFrame implements Runnable{
              }
            }
          }
-
+	class quitter extends WindowAdapter{
+		public void windowClosing(WindowEvent e) {
+			try {
+				obj.deconnexion(utilisateur);
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
 	 
 }
 
