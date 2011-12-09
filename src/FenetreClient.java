@@ -86,7 +86,7 @@ public class FenetreClient extends JFrame implements Runnable{
 		}
 		
 		addWindowListener(new quitter());
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 500, 300);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 

@@ -79,7 +79,7 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 
 	@Override
 	public void who(String nom) throws RemoteException {
-		String liste = "Liste des Utilisateurs connectés !\n"+clients.listerClients();
+		String liste = "Liste des Utilisateurs connectés :\n"+clients.listerClients();
 		clients.get(nom).ajouterMessage(new Message("Serveur",liste));
 	}
 	
