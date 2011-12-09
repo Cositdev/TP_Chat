@@ -3,9 +3,9 @@
  * @author Bertrand
  * Classe permetant l'affichage de la fenètre de statistiques
  */
-public class ThreadPerso extends Thread{
+public class ThreadClient extends Thread{
 	private String nom;
-	public ThreadPerso (String nom){
+	public ThreadClient (String nom){
 		super();
 		this.nom=nom;
 	}

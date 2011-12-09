@@ -14,20 +14,10 @@ public class ClientRMI {
 		Date da = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 		System.out.println(formatter.format(da));
-		
-		try {
-			System.out.println("Bonjour, quel est votre nom ?");
-			BufferedReader inNom=null;
-			inNom = new BufferedReader(new InputStreamReader(System.in));
-			utilisateur=inNom.readLine().trim();
-			System.out.println("Bonjour "+ utilisateur);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
 		System.out.println("Vous pouvez commencer à papoter ");
-		ThreadPerso th = new ThreadPerso(utilisateur);
-		th.start();
+
+		FenetreConnexion fen = new FenetreConnexion();
+		fen.setVisible(true);
+		
 	}
 }
