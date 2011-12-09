@@ -30,7 +30,7 @@ public class Message extends UnicastRemoteObject  {
 	}
 	
 	public String LireMessage(){
-		SimpleDateFormat sdfHeure = new SimpleDateFormat("HH:mm:ss");
+		SimpleDateFormat sdfHeure = new SimpleDateFormat("HH'h' mm'min' ss's'");
 		String heure = sdfHeure.format(this.Heure.getTime());
 		
 		return this.Auteur + " (" + heure + ") > " + this.message;
