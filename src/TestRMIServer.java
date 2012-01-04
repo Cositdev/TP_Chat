@@ -3,17 +3,10 @@ import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.Hashtable;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
 
 @SuppressWarnings("serial")
 public class TestRMIServer extends UnicastRemoteObject implements Information {
 	//private Historique historique;
-	private ArrayList<String> userLog = new ArrayList<String>();
 	private ListeClients clients =new ListeClients();
 
 	// Implémentation du constructeur
@@ -63,7 +56,8 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 		} catch (Exception ex) {
 			System.out.println(" Please enter: Server <port>"); return;
 		}
-		
+		if(System.getSecurityManager() == null)
+            System.setSecurityManager(new RMISecurityManager());
 		try {
 			// Création du serveur de nom - rmiregistry
 			Registry registry = LocateRegistry.createRegistry(port);

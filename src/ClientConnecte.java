@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 
 public class ClientConnecte {
 	private String nom;

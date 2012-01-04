@@ -12,6 +12,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -50,6 +51,7 @@ public class FenetreClient extends JFrame implements Runnable{
 			} catch (Exception e) {
 				System.out.println("Echec de la lecture des messages");
 				e.printStackTrace();
+				System.exit(0);
 				// TODO: handle exception
 			}
 			try {
@@ -66,24 +68,33 @@ public class FenetreClient extends JFrame implements Runnable{
 	}
 	public FenetreClient(String nom) {
 		utilisateur = nom;
+		JOptionPane jop = new JOptionPane();
+
 		try {
 			int port = 70;
 			String URL = "//"+InetAddress.getLocalHost().getHostName()+":"+port+"/mon_serveur";
 			
 			obj = (Information) Naming.lookup(URL);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
+			jop.showMessageDialog(null, "Erreur de connexion au serveur : MalFormedURLDialog \n"+e.getMessage(),"Raté !", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
+			System.exit(0);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
+			jop.showMessageDialog(null, "Erreur de connexion au serveur : RemoteException\n"+e.getMessage(),"Raté !", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
+	
+			System.exit(0);
 		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
+			jop.showMessageDialog(null, "Erreur de connexion au serveur : NotBoundException\n"+e.getMessage(),"Raté !", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
+			System.exit(0);
 		}
-		catch (Exception exc) {
-			exc.printStackTrace();
+		catch (Exception e) {
+			jop.showMessageDialog(null, "Erreur de connexion au serveur : Exeption\n"+e.getMessage(),"Raté !", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+			System.exit(0);
 		}
+		
 		
 		addWindowListener(new quitter());
 		setBounds(100, 100, 500, 300);
