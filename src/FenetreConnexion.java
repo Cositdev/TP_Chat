@@ -26,6 +26,8 @@ public class FenetreConnexion extends JFrame {
 
 	private JPanel container  =new JPanel();
 	private JTextField identif;
+	private static String URL ;
+
 	/**
 	 * Launch the application.
 	 */
@@ -33,7 +35,7 @@ public class FenetreConnexion extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenetreConnexion frame = new FenetreConnexion();
+					FenetreConnexion frame = new FenetreConnexion(URL);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,8 +47,10 @@ public class FenetreConnexion extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FenetreConnexion() {
+	public FenetreConnexion(String Adresse) {
+		URL = Adresse;
 		this.setLocationRelativeTo(null);
+		
         this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
 		this.setTitle("Bienvenue");
@@ -106,14 +110,13 @@ public class FenetreConnexion extends JFrame {
 
 		}else{
 		setVisible(false);
-		ThreadClient th = new ThreadClient(identif.getText());
+		ThreadClient th = new ThreadClient(identif.getText(),URL);
 		
 		//-------------Ajout Antoine pour le logging utilisateur
 		
 		try {
 			int port = 70;
 			//String URL = "//"+InetAddress.getLocalHost().getHostName()+":"+port+"/mon_serveur";
-			String URL = "//Sitcocolita-HP:80/mon_serveur";
 
 			Information obj = (Information) Naming.lookup(URL);
 			

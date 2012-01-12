@@ -34,7 +34,7 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 	}
 	
 	public void addUser(String username) throws RemoteException {
-		System.out.println("hello "+username);
+		System.out.println(username + "Vient de se connecter au serveur");
 		//Message mess = new Message(serverName,username +" vient de se connecter");
 		//historique.add(mess);
 		//userLog.add(username);
@@ -66,7 +66,8 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 			// Calcul de l’URL du serveur
 			//URL = "//"+InetAddress.getLocalHost().getHostName()+":"+
 			//port+"/mon_serveur";
-			URL = "//"+InetAddress.getLocalHost().getHostName()+":"+port+"/mon_serveur";
+			URL = "//"+InetAddress.getLocalHost().getHostAddress()+":"+port+"/mon_serveur";
+
 			Naming.rebind(URL, obj);
 			System.out.println("Serveur lancé");
 			System.out.println("URL : " + URL);

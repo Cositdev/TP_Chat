@@ -28,6 +28,7 @@ public class FenetreClient extends JFrame implements Runnable{
 	private Information obj;
 	private JScrollPane scrollArea;
 	private JScrollPane scrollGens;
+	private String URL;
 
 	/**
 	 * Launch the application.
@@ -66,14 +67,13 @@ public class FenetreClient extends JFrame implements Runnable{
 		
 		
 	}
-	public FenetreClient(String nom) {
+	public FenetreClient(String nom, String Adresse) {
 		utilisateur = nom;
 		JOptionPane jop = new JOptionPane();
-
+		URL = Adresse;
 		try {
 			int port = 70;
 			//String URL = "//"+InetAddress.getLocalHost().getHostName()+":"+port+"/mon_serveur";
-			String URL = "//Sitcocolita-HP:80/mon_serveur";
 			obj = (Information) Naming.lookup(URL);
 			
 			
