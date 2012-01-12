@@ -1,4 +1,3 @@
-
 public class ClientConnecte {
 	private String nom;
 	private Historique historique;

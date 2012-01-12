@@ -112,8 +112,9 @@ public class FenetreConnexion extends JFrame {
 		
 		try {
 			int port = 70;
-			String URL = "//"+InetAddress.getLocalHost().getHostName()+":"+port+"/mon_serveur";
-			
+			//String URL = "//"+InetAddress.getLocalHost().getHostName()+":"+port+"/mon_serveur";
+			String URL = "//Sitcocolita-HP:80/mon_serveur";
+
 			Information obj = (Information) Naming.lookup(URL);
 			
 			System.out.println("test1");

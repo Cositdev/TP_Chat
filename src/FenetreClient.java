@@ -72,9 +72,11 @@ public class FenetreClient extends JFrame implements Runnable{
 
 		try {
 			int port = 70;
-			String URL = "//"+InetAddress.getLocalHost().getHostName()+":"+port+"/mon_serveur";
-			
+			//String URL = "//"+InetAddress.getLocalHost().getHostName()+":"+port+"/mon_serveur";
+			String URL = "//Sitcocolita-HP:80/mon_serveur";
 			obj = (Information) Naming.lookup(URL);
+			
+			
 		} catch (MalformedURLException e) {
 			jop.showMessageDialog(null, "Erreur de connexion au serveur : MalFormedURLDialog \n"+e.getMessage(),"Raté !", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();

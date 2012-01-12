@@ -52,20 +52,21 @@ public class TestRMIServer extends UnicastRemoteObject implements Information {
 		try { // transformation d ’une chaîne de caractères en entier
 			//Integer I = new Integer(args[0]);
 			//port = I.intValue();
-			port=70;
+			port=80;
 		} catch (Exception ex) {
 			System.out.println(" Please enter: Server <port>"); return;
 		}
 		if(System.getSecurityManager() == null)
-            System.setSecurityManager(new RMISecurityManager());
+            //System.setSecurityManager(new RMISecurityManager());
 		try {
 			// Création du serveur de nom - rmiregistry
 			Registry registry = LocateRegistry.createRegistry(port);
 			// Création d ’une instance de l’objet serveur
 			Information obj = new TestRMIServer("Bienvenue sur le serveur !");
 			// Calcul de l’URL du serveur
-			URL = "//"+InetAddress.getLocalHost().getHostName()+":"+
-			port+"/mon_serveur";
+			//URL = "//"+InetAddress.getLocalHost().getHostName()+":"+
+			//port+"/mon_serveur";
+			URL = "//"+InetAddress.getLocalHost().getHostName()+":"+port+"/mon_serveur";
 			Naming.rebind(URL, obj);
 			System.out.println("Serveur lancé");
 			System.out.println("URL : " + URL);
